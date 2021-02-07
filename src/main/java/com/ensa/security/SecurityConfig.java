@@ -41,8 +41,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.headers().frameOptions().disable();
         http.cors().and()
                 .authorizeRequests().antMatchers(
-                        "/api/filiere/",
-                    "/api/niveau/",
                 "/api/users/login",
                 "/api/users/signup",
                 "/api/users/admin/signup"

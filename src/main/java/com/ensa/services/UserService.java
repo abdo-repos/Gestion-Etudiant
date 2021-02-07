@@ -15,7 +15,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.management.relation.Role;
+import java.util.Optional;
 
 
 @Service
@@ -63,7 +63,11 @@ public class UserService {
         AllUser user1 = users.findByCin(user.getCin());
 
         if(user1 == null) throw new Exception("the user with the given cin was not found");
-        if(userRepository.findByEmail(user.getEmail())!=null) throw new Exception("user already exists");
+
+
+        Optional<User> user2 =userRepository.findByEmail(user.getEmail());
+
+        System.out.println(user2);
 
         if(user1.getRole().equals(Roles.PROF)){
             Prof prof = new Prof();

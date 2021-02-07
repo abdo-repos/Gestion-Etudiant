@@ -1,6 +1,5 @@
 package com.ensa.entity;
 
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import lombok.Data;
 
 import javax.persistence.*;

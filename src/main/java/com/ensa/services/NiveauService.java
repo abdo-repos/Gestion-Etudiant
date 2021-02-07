@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 
 @Service
 public class NiveauService {
@@ -24,7 +25,8 @@ public class NiveauService {
 
 
     public Niveau addNiveau(HashMap<String,Object> map) throws Exception{
-        Long idF = (Long) map.get("filiere");
+
+        Long idF = Long.valueOf((String) map.get("filiere"));
         map.remove("filiere");
 
         Filiere filiere = filiereRepository.findById(idF).orElseThrow(()-> new Exception("Filiere not found"));
@@ -36,4 +38,24 @@ public class NiveauService {
 
         return niveauRepository.save(niveau);
     }
+
+    public List<Niveau> getAllNiveau() {
+        return niveauRepository.findAll();
+    }
+
+
+    public Niveau getNiveau(Long id) throws Exception{
+        if(id==null) throw new Exception("id is required");
+        Niveau niveau = niveauRepository.findById(id)
+                .orElseThrow(()-> new Exception("the niveau with the given id was not found "));
+
+        return niveau;
+    }
+
+    public Niveau deleteNiveau(Long id) throws Exception{
+        Niveau niveau = getNiveau(id);
+        niveauRepository.deleteById(id);
+        return  niveau;
+    }
+
 }
