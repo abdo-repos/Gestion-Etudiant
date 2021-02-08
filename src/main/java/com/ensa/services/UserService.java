@@ -30,6 +30,7 @@ public class UserService {
     private PasswordEncoder passwordEncoder;
     private NiveauRepository niveauRepository;
 
+
     @Autowired
     public UserService(UserRepository userRepository, AuthenticationManager authenticationManager,AllUserRepository users,
                        ApplicationUserService applicationUserService, JwtUtil jwtUtil,StudentRepository studentRepository,
@@ -43,6 +44,7 @@ public class UserService {
        this.studentRepository = studentRepository;
        this.passwordEncoder = passwordEncoder;
        this.niveauRepository = niveauRepository;
+
     }
 
     public String login(LoginCredentials login)throws BadCredentialsException{
@@ -58,16 +60,18 @@ public class UserService {
     }
 
 
-    public void signUp(User user) throws Exception{
+    public User signUp(User user) throws Exception{
+
 
         AllUser user1 = users.findByCin(user.getCin());
 
         if(user1 == null) throw new Exception("the user with the given cin was not found");
 
-
+        User foundUser  = userRepository.findByCin(user.getCin());
+        if (foundUser!=null) throw new Exception("cin already exists");
         Optional<User> user2 =userRepository.findByEmail(user.getEmail());
+        if(user2.isPresent()) throw new Exception("email already exists");
 
-        System.out.println(user2);
 
         if(user1.getRole().equals(Roles.PROF)){
             Prof prof = new Prof();
@@ -77,7 +81,7 @@ public class UserService {
             prof.setEmail(user.getEmail());
             prof.setRole(Roles.PROF);
             prof.setPassword(passwordEncoder.encode(user.getPassword()));
-            profRepository.save(prof);
+            return profRepository.save(prof);
         }else if (user1.getRole().equals(Roles.STUDENT)){
             Student student = new Student();
             Niveau niveau = niveauRepository.findById(user1.getIdNiveau()).orElseThrow(()-> new Exception("niveau not found"));
@@ -89,9 +93,9 @@ public class UserService {
             student.setLastName(user.getLastName());
             student.setRole(Roles.STUDENT);
             student.setPassword(passwordEncoder.encode(user.getPassword()));
-
-            studentRepository.save(student);
+            return studentRepository.save(student);
         }
+        throw new Exception("failed please try again");
     }
 
 

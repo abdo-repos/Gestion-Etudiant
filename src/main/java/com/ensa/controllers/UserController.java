@@ -35,10 +35,11 @@ public class UserController {
     @PostMapping(path = "/signup")
     public ResponseEntity<?> signUp(@Valid @RequestBody User user){
         try {
-            userService.signUp(user);
-            return new ResponseEntity<>(user,HttpStatus.OK);
+            User user1 = userService.signUp(user);
+            return new ResponseEntity<>(user1,HttpStatus.OK);
         }catch (Exception e){
-           return new  ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+           return ResponseEntity
+                   .status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 

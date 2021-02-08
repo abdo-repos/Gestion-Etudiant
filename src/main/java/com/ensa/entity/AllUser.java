@@ -14,7 +14,7 @@ public class AllUser implements Serializable {
     private Long id;
 
     @NotNull(message = "cin is required")
-    @Column(length = 10,nullable = false)
+    @Column(length = 10,nullable = false,unique = true)
     private String cin;
 
     @Enumerated(EnumType.STRING)

@@ -20,7 +20,7 @@ public class User implements Serializable {
     private Long id;
 
     @NotBlank(message = "cin is required")
-    @Column(length = 10, nullable = false)
+    @Column(length = 10, nullable = false,unique = true)
     private String cin;
 
     @NotBlank(message = "FirstName is required")
