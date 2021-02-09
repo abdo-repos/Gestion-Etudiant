@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -99,4 +100,12 @@ public class UserService {
     }
 
 
+    public List<User> findUsersByRole(String role)throws Exception{
+        if (role.equals("STUDENT"))
+            return userRepository.findAllByRole(Roles.STUDENT);
+        else if (role.equals("PROF"))
+            return userRepository.findAllByRole(Roles.PROF);
+        else
+            throw new Exception("role doesn't exist");
+    }
 }

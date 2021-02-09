@@ -38,7 +38,7 @@ public class CoursController {
         try {
             fileName = fileStorageService.storeFile(url);
             String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                    .path("api/filiere/downloadFile/")
+                    .path("api/cours/downloadCours/")
                     .path(fileName)
                     .toUriString();
 
@@ -87,6 +87,11 @@ public class CoursController {
         }catch (Exception e){
             return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @GetMapping("/list")
+    public ResponseEntity<?> getALlcours(){
+        return new ResponseEntity<>(coursService.getAllCours(),HttpStatus.OK);
     }
 
 }

@@ -3,12 +3,15 @@ package com.ensa.controllers;
 import com.ensa.entity.Module;
 import com.ensa.entity.Semester;
 import com.ensa.services.ModuleService;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 
 @RestController
 @RequestMapping(path = "/api/module/")
@@ -57,5 +60,16 @@ public class ModuleController {
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @GetMapping("/list/{email}")
+    public ResponseEntity<?> allModuleByProf(@PathVariable String email){
+        try {
+            List<Module> modules = moduleService.allModuleByProf(email);
+            return new ResponseEntity<>(modules,HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
+        }
+
     }
 }

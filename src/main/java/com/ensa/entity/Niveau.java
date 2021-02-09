@@ -1,5 +1,6 @@
 package com.ensa.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -20,13 +21,17 @@ public class Niveau implements Serializable {
     @Column(name = "desc_niveau", nullable = false,length = 50)
     private String descNiveau;
 
+
     @ManyToOne(targetEntity = Filiere.class)
     @JoinColumn(name = "id_filiere", nullable = false)
     private Filiere filiere;
 
-    @OneToMany(mappedBy = "niveau",targetEntity = Semester.class)
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "niveau",targetEntity = Semester.class)
     private List<Semester> semesterList;
 
-    @OneToMany(mappedBy = "niveau",targetEntity = Student.class)
+
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "niveau",targetEntity = Student.class)
     private List<Student> listStudent;
 }

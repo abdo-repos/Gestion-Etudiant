@@ -1,5 +1,6 @@
 package com.ensa.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -18,20 +19,25 @@ public class Module implements Serializable {
     @Column(name = "libelle_module",nullable = false,length = 40)
     private String libelle;
 
+
     @ManyToOne(targetEntity = Semester.class)
     @JoinColumn(name = "id_semester")
     private Semester semester;
+
 
     @ManyToOne(targetEntity = Prof.class)
     @JoinColumn(name = "id_prof")
     private Prof prof;
 
-    @OneToMany(mappedBy = "module", targetEntity = Cours.class)
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "module", targetEntity = Cours.class)
     private List<Cours> listCours;
 
-    @OneToMany(mappedBy = "module", targetEntity = Note.class)
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "module", targetEntity = Note.class)
     private List<Note> listNote;
 
-    @OneToMany(mappedBy = "module", targetEntity = Absence.class)
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "module", targetEntity = Absence.class)
     private List<Absence> listAbsence;
 }

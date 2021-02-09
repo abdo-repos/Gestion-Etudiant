@@ -1,5 +1,6 @@
 package com.ensa.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -16,9 +17,11 @@ public class Absence implements Serializable {
 
     private int nbAbsence;
 
+
     @ManyToOne(targetEntity = Student.class)
     @JoinColumn(name = "id_Student",nullable = false)
     private Student student;
+
 
     @ManyToOne(targetEntity = Module.class)
     @JoinColumn(name = "id_module")

@@ -1,5 +1,6 @@
 package com.ensa.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -18,11 +19,13 @@ public class Semester implements Serializable {
     @Column(name="libelle_semester",nullable = false,length = 20)
     private String libelle;
 
+
     @ManyToOne(targetEntity = Niveau.class)
     @JoinColumn(name = "id_niveau")
     private Niveau niveau;
 
-    @OneToMany(mappedBy = "semester", targetEntity = Module.class)
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "semester", targetEntity = Module.class)
     private List<Module> listModule;
 }
 

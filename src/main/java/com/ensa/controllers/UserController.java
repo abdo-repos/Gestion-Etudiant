@@ -1,17 +1,17 @@
 package com.ensa.controllers;
 
+import com.ensa.entity.Student;
 import com.ensa.entity.User;
 import com.ensa.helpers.LoginCredentials;
+import com.ensa.services.StudentService;
 import com.ensa.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping(path = "/api/users/")
@@ -19,10 +19,12 @@ public class UserController {
 
 
     private UserService userService;
+    private StudentService studentService;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService,StudentService studentService) {
         this.userService = userService;
+        this.studentService = studentService;
     }
 
     @PostMapping(path = "/login")
@@ -43,4 +45,24 @@ public class UserController {
         }
     }
 
+    @GetMapping(path = "/list/{role}")
+    public ResponseEntity<?> findByRole(@PathVariable String role){
+        try {
+            List<User> users= userService.findUsersByRole(role);
+            return new ResponseEntity<>(users,HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping(path = "/listByNiveau/{id}")
+    public ResponseEntity<?> allStudnetByNiveau(@PathVariable Long id){
+        try {
+
+            List<Student> students = studentService.getStudentByNiveau(id);
+            return new ResponseEntity<>(students,HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
+        }
+    }
 }

@@ -1,6 +1,7 @@
 package com.ensa.entity;
 
 import com.ensa.enums.Roles;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -37,6 +38,7 @@ public class User implements Serializable {
     @Column(length=50,nullable = false, unique = true)
     private String email;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @NotBlank(message = "Password is required")
     @Column(nullable = false)
     private String password;

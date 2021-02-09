@@ -1,13 +1,11 @@
 package com.ensa.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
+import javax.persistence.*;
 
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.validation.constraints.NotBlank;
 import java.util.List;
 
@@ -17,6 +15,8 @@ import java.util.List;
 @PrimaryKeyJoinColumn(name = "id")
 public class Prof extends User{
 
-    @OneToMany(mappedBy = "prof",targetEntity = Module.class)
+
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "prof",targetEntity = Module.class)
     private List<Module> listModule;
 }

@@ -1,5 +1,6 @@
 package com.ensa.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -18,9 +19,11 @@ public class Note implements Serializable {
     @Min(value = 0, message = "mark shouldn't be lower than 0")
     private double note;
 
+
     @ManyToOne(targetEntity = Student.class)
     @JoinColumn(name = "id_student",nullable = false)
     private Student student;
+
 
     @ManyToOne(targetEntity = Module.class)
     @JoinColumn(name="id_module",nullable = false)

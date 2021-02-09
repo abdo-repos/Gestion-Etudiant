@@ -60,4 +60,10 @@ public class ModuleService {
         moduleRepository.deleteById(id);
         return module;
     }
+
+    public List<Module> allModuleByProf(String email)throws Exception{
+
+        Prof prof = profRepository.findByEmail(email).orElseThrow(()-> new Exception("the prof with the given email was not found "));
+       return moduleRepository.findAllByProf(prof);
+    }
 }

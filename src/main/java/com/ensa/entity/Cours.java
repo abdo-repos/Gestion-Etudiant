@@ -1,5 +1,6 @@
 package com.ensa.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -16,6 +17,7 @@ public class Cours implements Serializable {
     @Column(name = "libelle_cours",nullable = false)
     @NotNull(message = "cours label is required")
     private String libelle;
+
     @Column(name = "Content_cours",nullable = false)
     @NotNull(message = "content is required")
     private String content;

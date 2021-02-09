@@ -1,6 +1,7 @@
 package com.ensa.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -15,16 +16,20 @@ import java.util.List;
 public class Student extends User {
 
 
-    @OneToMany(mappedBy = "student",targetEntity = Note.class)
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "student",targetEntity = Note.class)
     private List<Note> listNote;
+
 
     @ManyToOne(targetEntity = Niveau.class)
     @JoinColumn(name="id_niveau", nullable = false)
     private Niveau niveau;
 
-    @OneToMany(mappedBy = "student",targetEntity = Absence.class)
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "student",targetEntity = Absence.class)
     List<Absence> listAbsence;
 
-    @OneToMany(mappedBy = "student",targetEntity = DemandeService.class)
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "student",targetEntity = DemandeService.class)
     List<DemandeService> listDemandeService;
 }
