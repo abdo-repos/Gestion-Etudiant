@@ -1,8 +1,13 @@
-package com.ensa.repositories;
+package com.ensa.services;
 
+import com.ensa.entity.Absence;
 import com.ensa.entity.Module;
 import com.ensa.entity.Note;
 import com.ensa.entity.Student;
+import com.ensa.repositories.ModuleRepository;
+import com.ensa.repositories.NoteRepository;
+import com.ensa.repositories.StudentRepository;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.aspectj.weaver.ast.Not;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -49,6 +54,13 @@ public class NoteService {
     public List<Note> getAllNoteByStudent(String email) throws Exception{
         Student student = studentRepository.findByEmail(email).orElseThrow(()-> new Exception("the student with given id was not found "));
         List<Note> notes = noteRepository.findAllByStudent(student);
+        return notes;
+    }
+
+    public List<Note> getAllAbsenceByModule(Long id) throws Exception{
+        Module module = moduleRepository.findById(id).orElseThrow(()-> new Exception("the module with given id was not found "));
+
+        List<Note> notes = noteRepository.findAllByModule(module);
         return notes;
     }
 }

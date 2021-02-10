@@ -1,7 +1,7 @@
 package com.ensa.controllers;
 
 import com.ensa.entity.Note;
-import com.ensa.repositories.NoteService;
+import com.ensa.services.NoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,6 +38,16 @@ public class NoteController {
             return new ResponseEntity<>(notes,HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/listBy/{id}")
+    public ResponseEntity<?> getNoteByModule(@PathVariable Long id){
+        try {
+            List<Note> notes = noteService.getAllAbsenceByModule(id);
+            return new ResponseEntity<>(notes,HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
         }
     }
 }

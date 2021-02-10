@@ -16,4 +16,6 @@ public interface NoteRepository extends JpaRepository<Note,Long> {
 
     List<Note> findAllByStudent(Student student);
 
+    List<Note> findAllByModule(Module module);
+
 }

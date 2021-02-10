@@ -58,4 +58,12 @@ public class AbsenceService {
         List<Absence> absences = absenceRepository.findAllByStudent(student);
         return absences;
     }
+
+    public List<Absence> getAllAbsenceByModule(Long id) throws Exception{
+        Module module = moduleRepository.findById(id).orElseThrow(()-> new Exception("the module with given id was not found "));
+
+        List<Absence> absences = absenceRepository.findAllByModule(module);
+
+        return absences;
+    }
 }

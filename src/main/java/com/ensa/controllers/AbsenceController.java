@@ -42,4 +42,15 @@ public class AbsenceController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
+
+    @GetMapping("/listBy/{id}")
+    public ResponseEntity<?> getAbsByModule(@PathVariable Long id){
+        try {
+
+            List<Absence> absences = absenceService.getAllAbsenceByModule(id);
+            return new ResponseEntity<>(absences,HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
 }

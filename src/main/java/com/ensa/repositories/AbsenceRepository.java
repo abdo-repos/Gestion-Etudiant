@@ -3,6 +3,7 @@ package com.ensa.repositories;
 import com.ensa.entity.Absence;
 import com.ensa.entity.Module;
 import com.ensa.entity.Student;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -23,4 +24,6 @@ public interface AbsenceRepository extends JpaRepository<Absence,Long> {
     int nbAbsByModByStud(@Param("idModule") Long idModule, @Param("idStudent") Long idStudent);
 
     List<Absence> findAllByStudent(Student student);
+
+    List<Absence> findAllByModule(Module module);
 }

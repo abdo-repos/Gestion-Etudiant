@@ -57,6 +57,15 @@ public class ServDemController {
         }catch (Exception e){
             return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
         }
+    }
 
+    @DeleteMapping("{id}")
+    public ResponseEntity<?> deleteDemande(@PathVariable Long id){
+        try {
+            DemandeService d = servDemService.deleteDemande(id);
+            return new ResponseEntity<>(d,HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
+        }
     }
 }

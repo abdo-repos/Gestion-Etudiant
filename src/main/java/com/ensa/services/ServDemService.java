@@ -53,4 +53,11 @@ public class ServDemService {
         return demandeServiceRepository.save(d);
     }
 
+    public DemandeService deleteDemande(Long id)throws  Exception{
+        DemandeService demandeService = demandeServiceRepository.findById(id).orElseThrow(()-> new Exception("demande not found"));
+
+        demandeServiceRepository.delete(demandeService);
+        return demandeService;
+    }
+
 }
