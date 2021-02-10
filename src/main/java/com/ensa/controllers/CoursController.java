@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping(path="/api/cours")
+@CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
 public class CoursController {
 
     private CoursService coursService;
@@ -50,7 +51,7 @@ public class CoursController {
 
     }
 
-    @GetMapping("/downloadCours/{fileName}")
+    @GetMapping("/downloadCours/{fileName.+}")
     public ResponseEntity<Resource> downloadCours(@PathVariable String fileName, HttpServletRequest request){
 
         try {

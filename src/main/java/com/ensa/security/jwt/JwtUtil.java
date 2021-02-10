@@ -58,7 +58,7 @@ public class JwtUtil {
 
     public String generateToken(UserDetails details) {
         Map<String, Object> claims = new HashMap<>();
-        return createToken(claims, details, 30);
+        return createToken(claims, details, 1000);
     }
 
     public String generateRefreshToken(UserDetails details) {

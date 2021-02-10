@@ -23,6 +23,7 @@ public class ServDemService {
     }
 
     public DemandeService addDemande(HashMap<String, String> map) throws Exception{
+
         String cin = map.get("cin");
         Student student = studentRepository.findByCin(cin).orElseThrow(()-> new Exception("the student with the given cin was not found"));
 
@@ -45,9 +46,10 @@ public class ServDemService {
         return demandeServiceRepository.findAll();
     }
 
-    public DemandeService updateDemande(Long id,String etat)throws Exception{
+    public DemandeService updateDemande(Long id,HashMap<String,String> map)throws Exception{
         DemandeService d = demandeServiceRepository.findById(id).orElseThrow(()-> new Exception("Demande with the given id was not found"));
-        d.setStatus(etat);
+        System.out.println(map);
+        d.setStatus(map.get("status"));
         return demandeServiceRepository.save(d);
     }
 

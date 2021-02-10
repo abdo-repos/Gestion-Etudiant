@@ -24,6 +24,7 @@ public class ServDemController {
 
     @PostMapping
     public ResponseEntity<?> addDemande(@RequestBody HashMap<String,String> map){
+        System.out.println(map);
         try{
             DemandeService d = servDemService.addDemande(map);
             return new ResponseEntity<>(d,HttpStatus.OK);
@@ -48,9 +49,10 @@ public class ServDemController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<?> updateDemande(@PathVariable Long id,  @RequestBody String etat){
+    public ResponseEntity<?> updateDemande(@PathVariable Long id, @RequestBody HashMap<String,String> map){
+
         try {
-            DemandeService d = servDemService.updateDemande(id,etat);
+            DemandeService d = servDemService.updateDemande(id,map);
             return new ResponseEntity<>(d, HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
